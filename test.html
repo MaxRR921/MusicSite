@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Use the full Tonal.js library -->
+        <script src="https://cdn.jsdelivr.net/npm/tonal/browser/tonal.min.js"></script>
+    </head>
+    <body>
+        <script>
+            let midi = null; // global MIDIAccess object
+            let pressedNotes = [];
+            function onMIDISuccess(midiAccess) {
+                console.log("MIDI ready!");
+                midi = midiAccess; // store in the global (in real usage, would probably keep in an object instance)
+                listInputsAndOutputs(midi);
+                startLoggingMIDIInput(midi);
+            }
+
+            function onMIDIFailure(msg) {
+                console.error(`Failed to get MIDI access - ${msg}`);
+            }
+
+            navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+
+            function listInputsAndOutputs(midiAccess) {
+                for (const entry of midiAccess.inputs) {
+                    const input = entry[1];
+                    console.log(entry[1], input);
+                }
+
+                for (const entry of midiAccess.outputs) {
+                    const output = entry[1];
+                }
+            }
+
+            function onMIDIMessage(event) {
+                const { command, channel, note, velocity } = parseMidiMessage(event);
+                console.log(command, channel, note, velocity);
+            }
+
+            function startLoggingMIDIInput(midiAccess) {
+                midiAccess.inputs.forEach((entry) => {
+                    entry.onmidimessage = handleMidiMessage;
+                });
+            }
+
+            function parseMidiMessage(message) {
+                return {
+                    command: message.data[0] >> 4,
+                    channel: message.data[0] & 0xf,
+                    note: message.data[1],
+                    velocity: message.data[2] / 127
+                };
+            }
+
+            function handleMidiMessage(message) {
+                const { command, channel, note, velocity } = parseMidiMessage(message);
+
+                if (command === 8 || command === 9 && velocity === 0) {
+                    onNoteOff(note);
+                    console.log("command 8");
+                } else if (command === 9 && velocity > 0) {
+                    onNote(note, velocity);
+                    console.log(channel);
+                    console.log("command 9");
+                }
+            }
+
+            function onNote(note, velocity) {
+                console.log(note, velocity);
+                // Access the Note module via the full Tonal namespace
+                const noteName = Tonal.Note.fromMidi(note);
+                console.log(`Note: ${noteName}, Velocity: ${velocity}`);
+                pressedNotes.push(noteName)
+                detectChord()
+            }
+
+            function onNoteOff(note){
+                pressedNotes.pop(note);
+                detectChord()
+            }
+
+            function detectChord() {
+                if (pressedNotes.length > 2) { // Chords typically have at least 3 notes
+                    const detectedChords = Tonal.Chord.detect(pressedNotes);
+                    console.log(`Detected Chord(s): ${detectedChords.length ? detectedChords : "No chord detected"}`);
+                } else {
+                    console.log('Not enough notes to form a chord');
+                }
+            }
+
+            function onPad(note, velocity) {
+                console.log("pad", note, velocity);
+            }
+        </script>
+    </body>
+</html>

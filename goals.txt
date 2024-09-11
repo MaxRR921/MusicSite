@@ -1,0 +1,6 @@
+Goals for week 9/9:
+- javascript library to display musical notes instead of numbers
+- figure out midi pad number to notes - javascript library?
+-check out webmidi.js
+- maybe: get to play sound
+

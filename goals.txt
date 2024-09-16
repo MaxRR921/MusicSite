@@ -4,3 +4,14 @@ Goals for week 9/9:
 -check out webmidi.js
 - maybe: get to play sound
 
+
+9/16:
+hold down note for setup top right chromatic/diatonic red = chromatic for what we are doing
+change vertical interval in setup mode. - called overlap
+in setup mode, middle changes the root note, right below middle changes mode. 
+NEXT WEEK: 
+organize files,
+order from lowest to highest - key value pairs maybe, or any time add it in figure out where it should 
+check out examples - webmidi.js
+if you have time - grand staff visual - abc js possibly. 
+

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Use the full Tonal.js library -->
-        <script src="https://cdn.jsdelivr.net/npm/tonal/browser/tonal.min.js"></script>
+        
+        
     </head>
     <body>
+        <script src="https://cdn.jsdelivr.net/npm/tonal/browser/tonal.min.js"></script>
         <script>
             let midi = null; // global MIDIAccess object
             let pressedNotes = [];
@@ -80,7 +81,7 @@
             }
 
             function detectChord() {
-                if (pressedNotes.length > 2) { // Chords typically have at least 3 notes
+                if (pressedNotes.length > 1) { // Chords typically have at least 3 notes
                     const detectedChords = Tonal.Chord.detect(pressedNotes);
                     console.log(`Detected Chord(s): ${detectedChords.length ? detectedChords : "No chord detected"}`);
                 } else {

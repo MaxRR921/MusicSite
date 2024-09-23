@@ -15,3 +15,6 @@ order from lowest to highest - key value pairs maybe, or any time add it in figu
 check out examples - webmidi.js
 if you have time - grand staff visual - abc js possibly. 
 
+https://chromatone.center/theory/intervals/fifth-fourth/
+https://muted.io/piano/
+

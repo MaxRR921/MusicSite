@@ -13,5 +13,11 @@ NEXT WEEK:
 organize files,
 order from lowest to highest - key value pairs maybe, or any time add it in figure out where it should 
 check out examples - webmidi.js
-if you have time - grand staff visual - abc js possibly. 
+if you have time - grand staff visual - abc js possibly.
+
+
+9/23 - 
+Next week:
+finish visualizer, 
+check out css from email.
 

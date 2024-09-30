@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>🎼🌈 CSS Quasi-Spectrogram</title>
+        <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tonal/browser/tonal.min.js"></script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <div class="stuff_container">
+
+<div id="spectrogram_3d"></div>
+<script src="jquery-3.7.1.min.js"></script>
+<script src="jquery.color.js"></script>
+<script src="hslToRgb.js"></script>
+<script src="frequencyToNote.js"></script>
+
+<script src="vexflow-min.js"></script>
+<!-- <script src="https://unpkg.com/vexflow/releases/vexflow-min.js"></script> -->
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script> -->
+
+<script src="tonal.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/tonal/browser/tonal.min.js"></script> -->
+
+
+<script src="midi_script.js"></script>
+    <script>
+        midi_script.init();
+    </script>
+
+<script src="quasi_spectrogram.js"></script>
+<script>
+    quasi_spectrogram.init();
+</script>
+
+The frequency
+<br />
+<input id="fundamental" type="range" min="24" max="220" value="100" 
+ onchange="document.getElementById('fundamental_int_display').value=this.value;var note_name = frequencyToNote(this.value);document.getElementById('note_name').innerHTML=frequencyToNote(this.value); grand_staff_harm.update(note_name); quasi_spectrogram.fundamental = this.value; quasi_spectrogram.set_frequencies_to_harmonic_series(quasi_spectrogram.fundamental);"
+ />
+ <script>
+    document.getElementById("fundamental").oninput = document.getElementById("fundamental").onchange;
+ </script>
+
+<input id='fundamental_int_display' type="number" value="100" onchange="document.getElementById('fundamental').value = this.value;document.getElementById('fundamental').onchange();" />
+<label for="fundamental_int_display">Hz</label>
+
+
+<!-- <script>
+    function updateFromMidiNote() {
+        const note = midi_script.note; // Get the current note from midi_script
+
+        if (note) {
+            // Convert the MIDI note to note name and frequency using Tonal
+            const noteName = Tonal.Note.fromMidi(note);
+            const frequency = Tonal.Note.freq(noteName);
+
+            // Update the fundamental input and note name display
+            document.getElementById('fundamental_int_display').value = frequency;
+            document.getElementById('note_name').innerHTML = noteName;
+
+            // Update grand_staff_harm and quasi_spectrogram
+            grand_staff_harm.update(noteName);
+            quasi_spectrogram.fundamental = frequency;
+            quasi_spectrogram.set_frequencies_to_harmonic_series(frequency);
+        }
+    }
+
+    // Set an interval to check for MIDI note updates every 100 milliseconds
+    setInterval(updateFromMidiNote, 100);
+</script> -->
+
+
+<br />
+is approximately the note: <b id="note_name">note_name</b>
+
+
+<br />
+<div id="staff"></div>
+so it has the harmonic series that starts off with the notes:<br /><span id='html_display_of_notes'></span><br />
+
+<script src="grand_staff_harm.js"></script>
+<script>grand_staff_harm.init();</script>
+
+</div>
+</html>

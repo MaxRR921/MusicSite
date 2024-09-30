@@ -58,14 +58,18 @@ grand_staff_harm = {
 
         const staveBass = new VF.Stave(10, 130, 400);
         staveBass.addClef("bass").setContext(context).draw();
+       
+        
+        bass_notes_for_vexflow = bass_notes_for_vexflow ? bass_notes_for_vexflow :  ['b/4/r'];
         
         // Create notes for bass and treble clefs
         const notesBass = new VF.StaveNote({
             clef: "bass",
-            keys: bass_notes_for_vexflow,
+            keys: bass_notes_for_vexflow ,
             duration: "w"
         });
 
+        treble_notes_for_vexflow = treble_notes_for_vexflow ? treble_notes_for_vexflow :  ['b/4/r'];
         const notesTreble = new VF.StaveNote({
             clef: "treble",
             keys: treble_notes_for_vexflow,

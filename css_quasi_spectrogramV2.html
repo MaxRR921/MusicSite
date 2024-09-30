@@ -35,7 +35,7 @@
 
 The frequency
 <br />
-<input id="fundamental" type="range" min="24" max="220" value="100" 
+<input id="fundamental" type="range" min="24" max="440" value="100" 
  onchange="document.getElementById('fundamental_int_display').value=this.value;var note_name = frequencyToNote(this.value);document.getElementById('note_name').innerHTML=frequencyToNote(this.value); grand_staff_harm.update(note_name); quasi_spectrogram.fundamental = this.value; quasi_spectrogram.set_frequencies_to_harmonic_series(quasi_spectrogram.fundamental);"
  />
  <script>

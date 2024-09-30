@@ -26,3 +26,6 @@ https://muted.io/piano/
 
 :)
 
+9/30
+- fix clef bug 
+- have midi controller set frequency (css)

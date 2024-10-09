@@ -1,22 +1,37 @@
+
 grand_staff_harm = {
     fundamental_note_name: "D2"
     , init: function () {
         this.draw();
     }
+
     ,dom_id:'staff'
     ,draw:function(){
 
         document.getElementById(grand_staff_harm.dom_id).innerHTML = "";
 
         const scale = Tonal.Scale.get("C lydian dominant").notes; // Get notes in the C lydian dominant scale
-        var degrees = [-15 + (1 + 15), -8 + (1 + 15), -4 + (1 + 15), 1 + 14, 3 + 14, 5 + 14, 7 + 14, 8 + 14, 9 + 14, 10 + 14, 11 + 14]; // Scale degrees
+        var degrees = [
+            1,  // 1st partial
+            8,  // 2th partial
+            12, // 3th partial
+            15, // 4th partial
+            17, // 5th partial
+            19, // 6th partial
+            21, // 7st partial
+            22, // 8nd partial
+            23, // 9rd partial
+            24, // 10th partial
+            25  // 11th partial
+          ];
+          
         // Map degrees to notes and transpose down to correct fundamental
         const harmonic_series_notes = degrees.map(degree => {
             const index = (degree - 1) % scale.length; // Use modulo to cycle through the scale
             const octaveShift = Math.floor((degree - 1) / scale.length); // Shift octave if necessary
             const note = scale[index] + (4 + octaveShift); // Starting in octave 4, adjust as needed
 
-            // Transpose the note down by a major sixth
+            // Transpose the note down
             const transposedNote = Tonal.Note.transpose(note, Tonal.Interval.distance("C4", grand_staff_harm.fundamental_note_name) );
 
             return transposedNote; // Return transposed note with correct octave
@@ -59,21 +74,24 @@ grand_staff_harm = {
         const staveBass = new VF.Stave(10, 130, 400);
         staveBass.addClef("bass").setContext(context).draw();
        
-        
-        bass_notes_for_vexflow = bass_notes_for_vexflow ? bass_notes_for_vexflow :  ['b/4/r'];
+
+        const no_bass_notes = bass_notes_for_vexflow.length != 0 ? false : true;
+        bass_notes_for_vexflow = no_bass_notes ? bass_notes_for_vexflow :  ['b/4/r'];
         
         // Create notes for bass and treble clefs
         const notesBass = new VF.StaveNote({
             clef: "bass",
             keys: bass_notes_for_vexflow ,
-            duration: "w"
+            duration:no_bass_notes ? "wr" : "w"
         });
 
-        treble_notes_for_vexflow = treble_notes_for_vexflow ? treble_notes_for_vexflow :  ['b/4/r'];
+        const no_treble_notes = treble_notes_for_vexflow.length != 0 ? false :true
+        treble_notes_for_vexflow = no_treble_notes? treble_notes_for_vexflow :  ['b/4/r'];
+
         const notesTreble = new VF.StaveNote({
             clef: "treble",
             keys: treble_notes_for_vexflow,
-            duration: "w"
+            duration: no_treble_notes ? "wr" : "w"
         });
 
         // Create voice in 4/4 and add notes to both staves
@@ -93,6 +111,18 @@ grand_staff_harm = {
         voiceBass.draw(context, staveBass);
 
     }
+
+    ,getHarmonicSeries:function(note_freq){
+        partials = []
+        console.log(note_freq);
+        for (let i = 1; i < 6; i++) {
+            partials.push(i * note_freq)
+            console.log(partials[i])
+        }
+
+        partials.push()
+    }
+
     ,update:function(new_fundamental_note_name){
         this.fundamental_note_name = new_fundamental_note_name;
         this.draw();

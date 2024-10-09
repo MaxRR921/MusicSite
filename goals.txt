@@ -29,3 +29,8 @@ https://muted.io/piano/
 9/30
 - fix clef bug 
 - have midi controller set frequency (css)
+
+10/8
+fix logic error with restes in grand_staff_harm
+event listener instead of set time
+check out his zip

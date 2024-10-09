@@ -1,3 +1,4 @@
+
 const midi_script = {
     midi: null, // Now a member variable
     pressedNotes: [], // Now a member variable

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <title>🎼🌈 CSS Quasi-Spectrogram</title>
@@ -53,7 +54,7 @@ The frequency
         if (note) {
             // Convert the MIDI note to note name and frequency using Tonal
             const noteName = Tonal.Note.fromMidi(note);
-            const frequency = Tonal.Note.freq(noteName);
+            const frequency = Math.round(Tonal.Note.freq(noteName));
 
             // Update the fundamental input and note name display
             document.getElementById('fundamental_int_display').value = frequency;
@@ -68,7 +69,7 @@ The frequency
     }
 
     // Set an interval to check for MIDI note updates every 100 milliseconds
-    setInterval(updateFromMidiNote, 100);
+    // setInterval(updateFromMidiNote, 100);
 </script>
 
 

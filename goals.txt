@@ -34,3 +34,11 @@ https://muted.io/piano/
 fix logic error with restes in grand_staff_harm
 event listener instead of set time
 check out his zip
+
+10/14: 
+integrate tone.js to play sound - higher get lower amplitude.
+Familiarize with tone.js
+want the two things side by side...
+Future:
+mobile 
+hosting maybe ?

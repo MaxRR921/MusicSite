@@ -47,7 +47,13 @@ hosting maybe ?
 10/28 
 
 Read the entire "forms" stuff on Bootstrap docs <https://getbootstrap.com/docs/5.3/forms/overview/>
+
 Incorporate bootstrap css UI into note picker thing
+
+Create a demo of a modal dialog.
 
 Basic research on pros and cons of using React.
 
+Update "pseudo code" that is "step by step procedure.md"
+
+Look through "note mode tester" source code HTML

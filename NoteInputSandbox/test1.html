@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>test1</title>
+    </head>
+    <body>
+        <select id="notes">
+            <!-- Notes with sharps and flats -->
+            <option value="A">A</option>
+            <option value="A#">A# / Bb</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="C#">C# / Db</option>
+            <option value="D">D</option>
+            <option value="D#">D# / Eb</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="F#">F# / Gb</option>
+            <option value="G">G</option>
+            <option value="G#">G# / Ab</option>
+        </select>
+
+        <select id="octave">
+            <!-- Octaves from 0 to 8 -->
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+
+        <div id="staff"></div>
+
+        <script src="vexflow-min.js"></script>
+        <script src="tonal.min.js"></script>
+        <script src="grand_staff_harm.js"></script>
+
+        <script>
+            var e = document.getElementById("notes");
+            var d = document.getElementById("octave");
+
+            // Initialize note_name and note_number with default values
+            var note_name = e.options[e.selectedIndex].value;
+            var note_number = d.options[d.selectedIndex].value;
+
+            // Set the initial fundamental note name
+            grand_staff_harm.fundamental_note_name = note_name + note_number;
+
+            // Initialize the grand staff
+            grand_staff_harm.init();
+
+            e.addEventListener('change', function () {
+                note_name = this.options[this.selectedIndex].value;
+                grand_staff_harm.fundamental_note_name = note_name + note_number;
+                console.log("Note changed to:", grand_staff_harm.fundamental_note_name);
+                grand_staff_harm.draw();
+            });
+
+            d.addEventListener('change', function () {
+                note_number = this.options[this.selectedIndex].value;
+                grand_staff_harm.fundamental_note_name = note_name + note_number;
+                console.log("Octave changed to:", grand_staff_harm.fundamental_note_name);
+                grand_staff_harm.draw();
+            });
+        </script>
+    </body>
+</html>

@@ -67,10 +67,19 @@ const midi_script = {
     onNote(note, velocity) {
         this.note = note; // Storing the current note in the member variable
         console.log(`NOTE #: ${note}`);
+        
         const noteName = Tonal.Note.fromMidi(note);
         this.pressedNotes.push(noteName); // Using the pressedNotes member variable
         console.log(`Note: ${noteName}, Velocity: ${velocity}`);
+        updateFromMidiNote() 
+
+        this.playSound(noteName)
         this.detectChord();
+        
+    },
+    playSound(note) {
+        const synth = new Tone.Synth().toDestination();
+        synth.triggerAttackRelease(note, "8n");
     },
 
     onNoteOff(note) {

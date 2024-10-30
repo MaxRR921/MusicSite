@@ -63,43 +63,52 @@ grand_staff_harm = {
         const renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
 
         // Configure rendering context
-        renderer.resize(360, 300);
+        renderer.resize(360, 350);
         const context = renderer.getContext();
         context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
 
         // Create grand staff (treble and bass clef)
-        const staveTreble = new VF.Stave(10, 40, 400);
+        const staveTreble = new VF.Stave(10, 80, 400);
         staveTreble.addClef("treble").setContext(context).draw();
 
-        const staveBass = new VF.Stave(10, 130, 400);
+        const staveBass = new VF.Stave(10, 170, 400);
         staveBass.addClef("bass").setContext(context).draw();
        
 
-        const no_bass_notes = bass_notes_for_vexflow.length != 0 ? false : true;
-        bass_notes_for_vexflow = no_bass_notes ? bass_notes_for_vexflow :  ['b/4/r'];
-        
-        // Create notes for bass and treble clefs
+        // Check if there are any bass notes
+        const no_bass_notes = bass_notes_for_vexflow.length === 0;
+
+        // Set default to a rest if no bass notes are provided
+        bass_notes_for_vexflow = no_bass_notes ? ['f/3'] : bass_notes_for_vexflow;
+
+        // Create the stave note for bass clef
         const notesBass = new VF.StaveNote({
             clef: "bass",
-            keys: bass_notes_for_vexflow ,
-            duration:no_bass_notes ? "wr" : "w"
+            keys: bass_notes_for_vexflow,
+            duration: no_bass_notes ? "wr" : "w",  // Whole rest if no notes, whole note otherwise
         });
+        
 
-        const no_treble_notes = treble_notes_for_vexflow.length != 0 ? false :true
-        treble_notes_for_vexflow = no_treble_notes? treble_notes_for_vexflow :  ['b/4/r'];
+        // Check if there are any treble notes
+        const no_treble_notes = treble_notes_for_vexflow.length === 0;
 
+        // Set default to a rest if no treble notes are provided
+        treble_notes_for_vexflow = no_treble_notes ? ['b/4'] : treble_notes_for_vexflow;
+
+        // Create the stave note for treble clef
         const notesTreble = new VF.StaveNote({
             clef: "treble",
             keys: treble_notes_for_vexflow,
-            duration: no_treble_notes ? "wr" : "w"
+            duration: no_treble_notes ? "wr" : "w",  // Whole rest if no notes, whole note otherwise
         });
+
 
         // Create voice in 4/4 and add notes to both staves
         const voiceTreble = new VF.Voice({ num_beats: 4, beat_value: 4 }).addTickables([notesTreble]);
         const voiceBass = new VF.Voice({ num_beats: 4, beat_value: 4 }).addTickables([notesBass]);
 
         console.log(grand_staff_harm.fundamental_note_name,bass_notes_for_vexflow,treble_notes_for_vexflow)
-
+        
         VF.Accidental.applyAccidentals([voiceBass], `C`);
         VF.Accidental.applyAccidentals([voiceTreble], `C`);
 

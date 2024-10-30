@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>🎼🌈 CSS Quasi-Spectrogram</title>
         <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/tonal/browser/tonal.min.js"></script>
         <link rel="stylesheet" href="style.css" />
+        <script src="https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js"></script>
     </head>
     <div class="stuff_container">
-
 <div id="spectrogram_3d"></div>
 <script src="jquery-3.7.1.min.js"></script>
 <script src="jquery.color.js"></script>
@@ -36,6 +35,18 @@
 
 The frequency
 <br />
+
+<button id="startAudioButton">Enable Audio</button>
+
+<script>
+    document.getElementById('startAudioButton').addEventListener('click', async () => {
+    if (Tone.context.state !== 'running') {
+        await Tone.start();
+        console.log('Audio context started');
+    }
+});
+
+</script>
 <input id="fundamental" type="range" min="20" max="440" value="100" 
  onchange="document.getElementById('fundamental_int_display').value=this.value;var note_name = frequencyToNote(this.value);document.getElementById('note_name').innerHTML=frequencyToNote(this.value); grand_staff_harm.update(note_name); quasi_spectrogram.fundamental = this.value; quasi_spectrogram.set_frequencies_to_harmonic_series(quasi_spectrogram.fundamental);"
  />

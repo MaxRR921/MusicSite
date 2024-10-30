@@ -42,3 +42,7 @@ want the two things side by side...
 Future:
 mobile 
 hosting maybe ?
+
+10/22
+fix html new errors
+figure out how to make it so it just shows that note instead of the whole harmonic series.
